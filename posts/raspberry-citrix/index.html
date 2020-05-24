@@ -1,320 +1,275 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="generator" content="Hugo 0.71.0">
-  <title>Raspberry Citrix with Dual Monitor | lunulata.io</title>
-  <link rel="canonical" href="https://www.lunulata.io/posts/raspberry-citrix/">
-  <link rel="stylesheet" href=
-  "https://www.lunulata.io/css/base.min.da92e47a9a4ecd4b51c0b581c5dd1bacd437b5c5683812c01e46ad217a337c98.css"
-  integrity="sha256-2pLkeppOzUtRwLWBxd0brNQ3tcVoOBLAHkatIXozfJg=" crossorigin=
-  "anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.71.0">
+    <title>Raspberry Citrix with Dual Monitor | lunulata.io</title>
+    <link rel="canonical" href="https://www.lunulata.io/posts/raspberry-citrix/">
+    <link rel="stylesheet" href=
+    "https://www.lunulata.io/css/base.min.da92e47a9a4ecd4b51c0b581c5dd1bacd437b5c5683812c01e46ad217a337c98.css"
+    integrity="sha256-2pLkeppOzUtRwLWBxd0brNQ3tcVoOBLAHkatIXozfJg=" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="u-background">
-    <div class="u-wrapper">
-      <ul class="Banner">
-        <li class="Banner-item Banner-item--title">
-          <a class="Banner-link u-clickable" href=
-          "https://www.lunulata.io/">lunulata.io</a>
-        </li>
-        <li class="Banner-item">
-          <a class="Banner-link u-clickable" href=
-          "https://www.lunulata.io/about/">about</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <main>
-    <div class="u-wrapper">
-      <div class="u-padding">
-        <article>
-          <header class="Heading">
-            <h2 class="Heading-title"><a class="Heading-link u-clickable" href=
-            "https://www.lunulata.io/posts/raspberry-citrix/" rel=
-            "bookmark">Raspberry Citrix with Dual
-            Monitor</a></h2><time datetime="2020-02-28T10:55:50+01:00">28
-            February, 2020</time>
-          </header>
-          <p>Citrix Workspace App is the client component of Citrix Workspace.
-          It enables access to a full desktop on a remote host and is available
-          for many different platforms. A colleague recently mentioned it could
-          be installed on a Raspberry. So I have not hesitated and ordered a
-          Raspberry Pi 4 to setup a thin-client for work from home. I use this
-          Raspberry for nothing but Citrix, so I try to keep the number of
-          installed packages at a minimum. Below I will explain how I setup a
-          Citrix Workspace App on Raspbian on a Raspberry Pi 4 with two
-          monitors.</p>
-          <h2 id="hardware">Hardware</h2>
-          <ul>
-            <li>Raspberry Pi 4 Model B 4GB</li>
-            <li>16GB Class 10 SD Card</li>
-            <li>2 x Monitors 1920x1080</li>
-          </ul>
-          <p>Since I wanted to be sure to have enough RAM, I have gone for the
-          4GB version. It is definitely not needed for this setup. The memory
-          usage usually is below 500MB, so 2G is definitely enough. I use a
-          16GB SD card since it was as expensive as a 8GB, Rasbian Lite with
-          all the packages takes 2.5GB. 4GB or 8GB would have been enough.</p>
-          <h2 id="install-rasbian-lite">Install Rasbian Lite</h2>
-          <p>First the Raspbian Buster Lite image is written to the SD card. It
-          can be downloaded from <a href=
-          "https://www.raspberrypi.org/downloads/raspbian/">Rasberry
-          downloads</a>. The SD card may not be <code>/dev/mmcblk0</code> on a
-          different system. The proper device can be found for example with
-          <code>fdisk -l</code>.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo dd bs<span style=
-            "color:#f92672">=</span>4M <span style=
-            "color:#66d9ef">if</span><span style=
-            "color:#f92672">=</span>raspbian-buster-lite.img of<span style=
-            "color:#f92672">=</span>/dev/mmcblk0 conv<span style=
-            "color:#f92672">=</span>fsync status<span style=
-            "color:#f92672">=</span>progress
+    <nav class="u-background">
+        <div class="u-wrapper">
+            <ul class="Banner">
+                <li class="Banner-item Banner-item--title">
+                    <a class="Banner-link u-clickable" href="https://www.lunulata.io/">lunulata.io</a>
+                </li>
+                <li class="Banner-item">
+                    <a class="Banner-link u-clickable" href="https://www.lunulata.io/about/">about</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="u-wrapper">
+            <div class="u-padding">
+                <article>
+                    <header class="Heading">
+                        <h2 class="Heading-title"><a class="Heading-link u-clickable" href=
+                        "https://www.lunulata.io/posts/raspberry-citrix/" rel="bookmark">Raspberry Citrix with Dual
+                        Monitor</a></h2><time datetime="2020-02-28T10:55:50+01:00">28 February, 2020</time>
+                    </header>
+                    <p>Citrix Workspace App is the client component of Citrix Workspace. It enables access to a full
+                    desktop on a remote host and is available for many different platforms. A colleague recently
+                    mentioned it could be installed on a Raspberry. So I have not hesitated and ordered a Raspberry Pi
+                    4 to setup a thin-client for work from home. I use this Raspberry for nothing but Citrix, so I try
+                    to keep the number of installed packages at a minimum. Below I will explain how I setup a Citrix
+                    Workspace App on Raspbian on a Raspberry Pi 4 with two monitors.</p>
+                    <h2 id="hardware">Hardware</h2>
+                    <ul>
+                        <li>Raspberry Pi 4 Model B 4GB</li>
+                        <li>16GB Class 10 SD Card</li>
+                        <li>2 x Monitors 1920x1080</li>
+                    </ul>
+                    <p>Since I wanted to be sure to have enough RAM, I have gone for the 4GB version. It is definitely
+                    not needed for this setup. The memory usage usually is below 500MB, so 2G is definitely enough. I
+                    use a 16GB SD card since it was as expensive as a 8GB, Rasbian Lite with all the packages takes
+                    2.5GB. 4GB or 8GB would have been enough.</p>
+                    <h2 id="install-rasbian-lite">Install Rasbian Lite</h2>
+                    <p>First the Raspbian Buster Lite image is written to the SD card. It can be downloaded from
+                    <a href="https://www.raspberrypi.org/downloads/raspbian/">Rasberry downloads</a>. The SD card may
+                    not be <code>/dev/mmcblk0</code> on a different system. The proper device can be found for example
+                    with <code>fdisk -l</code>.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo dd bs<span style="color:#f92672">=</span>4M <span style=
+                        "color:#66d9ef">if</span><span style=
+                        "color:#f92672">=</span>raspbian-buster-lite.img of<span style=
+                        "color:#f92672">=</span>/dev/mmcblk0 conv<span style=
+                        "color:#f92672">=</span>fsync status<span style="color:#f92672">=</span>progress
 </code></pre>
-          </div>
-          <p>If <code>dd</code> cannot be used to write the image to the SD
-          card, there is a guide in <a href=
-          "https://www.raspberrypi.org/documentation/installation/installing-images/README.md">
-          Raspberry documentation</a>.</p>
-          <p>That’s it, given everything is connected to the Raspberry. It can
-          be booted now. Login is <code>pi</code> and password is
-          <code>raspberry</code>. First, the system is updated and then
-          <code>raspi-config</code> can be run to do some basic
-          configuration.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang="bash">$ sudo apt update
+                    </div>
+                    <p>If <code>dd</code> cannot be used to write the image to the SD card, there is a guide in
+                    <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">Raspberry
+                    documentation</a>.</p>
+                    <p>That’s it, given everything is connected to the Raspberry. It can be booted now. Login is
+                    <code>pi</code> and password is <code>raspberry</code>. First, the system is updated and then
+                    <code>raspi-config</code> can be run to do some basic configuration.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo apt update
 $ sudo apt dist-upgrade
 $ sudo raspi-config
 </code></pre>
-          </div>
-          <p>In order to use the complete screen, overscan is deactivated.
-          Since it is not intended to use this raspberry for anything else than
-          Citrix, it is more convenient to autologin after boot.</p>
-          <ul>
-            <li>Deactivate overscan: 7 Advanced -&gt; A2</li>
-            <li>Autologin into console: 3 Boot -&gt; B2</li>
-            <li>Update timezone: 3 Localization -&gt; I2</li>
-            <li>Reboot after configuration</li>
-          </ul>
-          <h2 id="setup-window-manager-and-browser">Setup window manager and
-          browser</h2>
-          <p>For this thin-client there is no desktop environment with office
-          software, games etc. required. It only needs a browser to get a
-          Citrix session and Citrix Workspace App. If only one monitor is used,
-          almost any window manager can be used. With two monitors it has shown
-          slightly more difficult, Citrix gets
-          <code>_NET_WM_FULLSCREEN_MONITORS</code> message, which is set by the
-          window manager.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref"
-          role="doc-noteref">1</a></sup> It appears, many window managers do
-          not set this variable. Of the low-footprint window managers I have
-          tried, only xfwm4 and icewm work out of the box with multiple
-          monitors. dwm, jwm and fluxbox have worked with one monitor only. So
-          I have chosen xfwm4, because it looks nicer. To get a Citrix
-          connection, I do need a browser. I chose Midori, because it feels
-          light.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo apt install xfwm4 xfce4-panel xinit xterm
+                    </div>
+                    <p>In order to use the complete screen, overscan is deactivated. Since it is not intended to use
+                    this raspberry for anything else than Citrix, it is more convenient to autologin after boot.</p>
+                    <ul>
+                        <li>Deactivate overscan: 7 Advanced -&gt; A2</li>
+                        <li>Autologin into console: 3 Boot -&gt; B2</li>
+                        <li>Update timezone: 3 Localization -&gt; I2</li>
+                        <li>Reboot after configuration</li>
+                    </ul>
+                    <h2 id="setup-window-manager-and-browser">Setup window manager and browser</h2>
+                    <p>For this thin-client there is no desktop environment with office software, games etc. required.
+                    It only needs a browser to get a Citrix session and Citrix Workspace App. If only one monitor is
+                    used, almost any window manager can be used. With two monitors it has shown slightly more
+                    difficult, Citrix gets <code>_NET_WM_FULLSCREEN_MONITORS</code> message, which is set by the window
+                    manager.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> It
+                    appears, many window managers do not set this variable. Of the low-footprint window managers I have
+                    tried, only xfwm4 and icewm work out of the box with multiple monitors. dwm, jwm and fluxbox have
+                    worked with one monitor only. So I have chosen xfwm4, because it looks nicer. To get a Citrix
+                    connection, I do need a browser. I chose Midori, because it feels light.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo apt install xfwm4 xfce4-panel xinit xterm
 $ sudo apt install midori
 </code></pre>
-          </div>
-          <p>Since I do not want to have any transparency, shadows etc. I
-          deactivated the xfwm4 compositor. The settings menu can be opened
-          through bash.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ xfwm4-tweaks-settings
+                    </div>
+                    <p>Since I do not want to have any transparency, shadows etc. I deactivated the xfwm4 compositor.
+                    The settings menu can be opened through bash.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ xfwm4-tweaks-settings
 </code></pre>
-          </div>
-          <p>The window manager should be started when autologin starts bash.
-          So we add the xfce4-panel and xfwm4 to <code>.xinitrc</code>.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang="bash">$ cat <span style=
-            "color:#e6db74">&lt;&lt; EOF &gt; ~/.xinitrc
+                    </div>
+                    <p>The window manager should be started when autologin starts bash. So we add the xfce4-panel and
+                    xfwm4 to <code>.xinitrc</code>.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ cat <span style="color:#e6db74">&lt;&lt; EOF &gt; ~/.xinitrc
 </span><span style="color:#e6db74">xfce4-panel &
 </span><span style="color:#e6db74">exec xfwm4
 </span><span style="color:#e6db74">EOF</span>
 </code></pre>
-          </div>
-          <p>And then <code>startx</code> in <code>.bashprofile</code>.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang="bash">$ cat <span style=
-            "color:#e6db74">&lt;&lt; EOF &gt; ~/.bash_profile
-</span><span style=
-"color:#e6db74">if [[ -z $DISPLAY ]] &amp;& [[ $(tty) = /dev/tty1 ]]; then
+                    </div>
+                    <p>And then <code>startx</code> in <code>.bashprofile</code>.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ cat <span style=
+                        "color:#e6db74">&lt;&lt; EOF &gt; ~/.bash_profile
+</span><span style="color:#e6db74">if [[ -z $DISPLAY ]] &amp;& [[ $(tty) = /dev/tty1 ]]; then
 </span><span style="color:#e6db74">    exec startx
 </span><span style="color:#e6db74">fi
 </span><span style="color:#e6db74">EOF</span>
 </code></pre>
-          </div>
-          <p>After this we can reboot into xfwm4.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang="bash">$ reboot
+                    </div>
+                    <p>After this we can reboot into xfwm4.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ reboot
 </code></pre>
-          </div>
-          <h2 id="setup-citrix-workspace">Setup Citrix workspace</h2>
-          <p>So far we have prepared a minimal Raspbian, with a window manager
-          and a browser. Now we can download <em>Citrix Workspace app for Linux
-          (ARM HF)</em> from <a href=
-          "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html">
-          Citrix for Linux</a>. Make sure to download the ARM version for
-          Debian.</p>
-          <p>Assuming Workspace app has been downloaded to Downloads, it can
-          the be installed with <code>dpkg</code>. In case there are any
-          packages missing, installation will fail and the missing package will
-          be reported. The missing package can be installed with <code>apt
-          install missing-package</code> and then Workspace app installation
-          with <code>dpkg</code> can be tried again.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb
+                    </div>
+                    <h2 id="setup-citrix-workspace">Setup Citrix workspace</h2>
+                    <p>So far we have prepared a minimal Raspbian, with a window manager and a browser. Now we can
+                    download <em>Citrix Workspace app for Linux (ARM HF)</em> from <a href=
+                    "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html">Citrix
+                    for Linux</a>. Make sure to download the ARM version for Debian.</p>
+                    <p>Assuming Workspace app has been downloaded to Downloads, it can the be installed with
+                    <code>dpkg</code>. In case there are any packages missing, installation will fail and the missing
+                    package will be reported. The missing package can be installed with <code>apt install
+                    missing-package</code> and then Workspace app installation with <code>dpkg</code> can be tried
+                    again.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb
 </code></pre>
-          </div>
-          <p>Make ssl certificates available to ICAClient.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/
+                    </div>
+                    <p>Make ssl certificates available to ICAClient.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang=
+                        "bash">$ sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/
 </code></pre>
-          </div>
-          <p>In case the certificate of your companies website is not trusted,
-          you can add it to your certificates and update the certificates.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo mv certificate.crt /usr/local/share/ca-certificates/
+                    </div>
+                    <p>In case the certificate of your companies website is not trusted, you can add it to your
+                    certificates and update the certificates.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo mv certificate.crt /usr/local/share/ca-certificates/
 $ sudo update-ca-certificates
 </code></pre>
-          </div>
-          <h2 id="citrx-configuration">Citrx Configuration</h2>
-          <p>For my headset to work on the remote host, I also installed
-          Pulseaudio plugin and changed the <code>AllowAudioInput</code> in
-          <code>~/wfclient.ini</code> to <code>true</code>.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo apt install xfce4-pulseaudio-plugin
+                    </div>
+                    <h2 id="citrx-configuration">Citrx Configuration</h2>
+                    <p>For my headset to work on the remote host, I also installed Pulseaudio plugin and changed the
+                    <code>AllowAudioInput</code> in <code>~/wfclient.ini</code> to <code>true</code>.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo apt install xfce4-pulseaudio-plugin
 </code></pre>
-          </div>
-          <p><code>wfclient.ini</code>:</p>
-          <pre><code>AllowAudioInput=True
+                    </div>
+                    <p><code>wfclient.ini</code>:</p>
+                    <pre><code>AllowAudioInput=True
 </code></pre>
-          <p>In different applications I use mouse middle click, e.g. to close
-          tabs or to open in a new tab. The default Citrix configuration remaps
-          mouse middle click to <code>paste</code> (ctrl + v). I commented this
-          line with a semicolon.</p>
-          <pre><code>;MouseSendsControlV=True
+                    <p>In different applications I use mouse middle click, e.g. to close tabs or to open in a new tab.
+                    The default Citrix configuration remaps mouse middle click to <code>paste</code> (ctrl + v). I
+                    commented this line with a semicolon.</p>
+                    <pre><code>;MouseSendsControlV=True
 </code></pre>
-          <h2 id="backup">Backup</h2>
-          <p>Finally, I made a backup of my Raspberry on my notebook.</p>
-          <div class="highlight">
-            <pre style=
-            "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-            <code class="language-bash" data-lang=
-            "bash">$ sudo dd bs<span style=
-            "color:#f92672">=</span>4M <span style=
-            "color:#66d9ef">if</span><span style=
-            "color:#f92672">=</span>/dev/mmcblk0 of<span style=
-            "color:#f92672">=</span>raspbian-citrix.img conv<span style=
-            "color:#f92672">=</span>fsync status<span style=
-            "color:#f92672">=</span>progress
+                    <h2 id="backup">Backup</h2>
+                    <p>Finally, I made a backup of my Raspberry on my notebook.</p>
+                    <div class="highlight">
+                        <pre style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
+                        "language-bash" data-lang="bash">$ sudo dd bs<span style="color:#f92672">=</span>4M <span style=
+                        "color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/mmcblk0 of<span style=
+                        "color:#f92672">=</span>raspbian-citrix.img conv<span style=
+                        "color:#f92672">=</span>fsync status<span style="color:#f92672">=</span>progress
 </code></pre>
-          </div>
-          <h2 id="start-citrix">Start Citrix</h2>
-          <ul>
-            <li>Get Citrix connection file</li>
-            <li>Open downloaded icx file</li>
-          </ul>
-          <h2 id="references">References</h2>
-          <ul>
-            <li>
-              <a href=
-              "https://unix.stackexchange.com/questions/42359/how-can-i-autologin-to-desktop-with-systemd">
-              autologin with systemd</a>
-            </li>
-            <li>
-              <a href=
-              "https://discussions.citrix.com/topic/310423-multi-monitor-support-on-linux-with-citrix-receiver-121/#comment-1669828">
-              Multi-Monitor Support on Linux with Citrix Receiver 12.1</a>
-            </li>
-            <li>
-              <a href=
-              "https://arsenicks.wordpress.com/2019/01/30/use-multiple-monitor-and-full-screen-with-citrix-receiver-on-linux/">
-              Use multiple monitor and full screen with Citrix receiver on
-              Linux</a>
-            </li>
-            <li>
-              <a href=
-              "https://docs.citrix.com/en-us/receiver/linux/current-release/optimize.html">
-              Optimize Citrix</a>
-            </li>
-            <li>
-              <a href=
-              "https://docs.citrix.com/en-us/citrix-workspace-app-for-linux/configure-xenapp.html">
-              Configure Citrix</a>
-            </li>
-            <li>
-              <a href=
-              "https://www.citrix.com/blogs/2018/11/30/raspberry-pi-as-a-citrix-virtual-apps-and-desktops-thin-client-second-helping/">
-              Raspberry Pi as a Citrix Virtual Apps and Desktops thin client:
-              second helping</a>
-            </li>
-            <li>
-              <a href=
-              "https://geektechstuff.com/2018/06/24/installing-citrix-receiver-raspberry-pi/">
-              Installing Citrix Receiver (Raspberry Pi)</a>
-            </li>
-            <li>
-              <a href=
-              "https://www.citrix.com/blogs/2019/07/08/how-good-is-the-new-raspberry-pi-4-as-a-thin-client/">
-              How good is the new Raspberry Pi 4 as a thin client?</a>
-            </li>
-          </ul>
-          <section class="footnotes" role="doc-endnotes">
-            <hr>
-            <ol>
-              <li id="fn:1" role="doc-endnote">
-                <p><a href="https://support.citrix.com/article/CTX209485">How
-                to make a session that spans multiple monitors with Linux
-                Receiver</a> <a href="#fnref:1" class="footnote-backref" role=
-                "doc-backlink">↩︎</a></p>
-              </li>
-            </ol>
-          </section>
-        </article>
-      </div>
-    </div>
-  </main>
-  <footer class="Footer">
-    <div class="u-wrapper">
-      <div class="u-padding">
-        <a href="https://github.com/kressi/"><img src="/images/github-32.svg"
-        alt="Github"></a> <a href="mailto:lunulata@gmx.net"><img src=
-        "/images/mail-32.svg" alt="Email"></a>
-      </div>
-    </div>
-  </footer>
+                    </div>
+                    <h2 id="start-citrix">Start Citrix</h2>
+                    <ul>
+                        <li>Get Citrix connection file</li>
+                        <li>Open downloaded icx file</li>
+                    </ul>
+                    <h2 id="references">References</h2>
+                    <ul>
+                        <li>
+                            <a href=
+                            "https://unix.stackexchange.com/questions/42359/how-can-i-autologin-to-desktop-with-systemd">
+                            autologin with systemd</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://discussions.citrix.com/topic/310423-multi-monitor-support-on-linux-with-citrix-receiver-121/#comment-1669828">
+                            Multi-Monitor Support on Linux with Citrix Receiver 12.1</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://arsenicks.wordpress.com/2019/01/30/use-multiple-monitor-and-full-screen-with-citrix-receiver-on-linux/">
+                            Use multiple monitor and full screen with Citrix receiver on Linux</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://docs.citrix.com/en-us/receiver/linux/current-release/optimize.html">Optimize
+                            Citrix</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://docs.citrix.com/en-us/citrix-workspace-app-for-linux/configure-xenapp.html">Configure
+                            Citrix</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://www.citrix.com/blogs/2018/11/30/raspberry-pi-as-a-citrix-virtual-apps-and-desktops-thin-client-second-helping/">
+                            Raspberry Pi as a Citrix Virtual Apps and Desktops thin client: second helping</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://geektechstuff.com/2018/06/24/installing-citrix-receiver-raspberry-pi/">Installing
+                            Citrix Receiver (Raspberry Pi)</a>
+                        </li>
+                        <li>
+                            <a href=
+                            "https://www.citrix.com/blogs/2019/07/08/how-good-is-the-new-raspberry-pi-4-as-a-thin-client/">
+                            How good is the new Raspberry Pi 4 as a thin client?</a>
+                        </li>
+                    </ul>
+                    <section class="footnotes" role="doc-endnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn:1" role="doc-endnote">
+                                <p><a href="https://support.citrix.com/article/CTX209485">How to make a session that
+                                spans multiple monitors with Linux Receiver</a> <a href="#fnref:1" class=
+                                "footnote-backref" role="doc-backlink">↩︎</a></p>
+                            </li>
+                        </ol>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+    <footer class="Footer">
+        <div class="u-wrapper">
+            <div class="u-padding">
+                <a href="https://github.com/kressi/"><img src="/images/github-32.svg" alt="Github"></a> <a href=
+                "mailto:lunulata@gmx.net"><img src="/images/mail-32.svg" alt="Email"></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

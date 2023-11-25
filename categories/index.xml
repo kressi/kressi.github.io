@@ -24,7 +24,9 @@ Citrix, so I try to keep the number of installed packages
 at a minimum. Below I will explain how I setup a Citrix
 Workspace App on Raspbian on a Raspberry Pi 4 with
 two monitors.&lt;/p&gt;
-&lt;h2 id=&#34;hardware&#34;&gt;Hardware&lt;/h2&gt;
+&lt;h2 id=&#34;hardware&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#hardware&#34;&gt;Hardware&lt;/a&gt;
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Raspberry Pi 4 Model B 4GB&lt;/li&gt;
 &lt;li&gt;16GB Class 10 SD Card&lt;/li&gt;
@@ -37,15 +39,18 @@ so 2G is definitely enough. I use a 16GB SD card since
 it was as expensive as a 8GB, Rasbian Lite with all
 the packages takes 2.5GB. 4GB or 8GB would have been
 enough.&lt;/p&gt;
-&lt;h2 id=&#34;install-rasbian-lite&#34;&gt;Install Rasbian Lite&lt;/h2&gt;
+&lt;h2 id=&#34;install-rasbian-lite&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#install-rasbian-lite&#34;&gt;Install Rasbian Lite&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;First the Raspbian Buster Lite image is written to the
 SD card. It can be downloaded from
 &lt;a href=&#34;https://www.raspberrypi.org/downloads/raspbian/&#34;&gt;Rasberry downloads&lt;/a&gt;.
 The SD card may not be &lt;code&gt;/dev/mmcblk0&lt;/code&gt; on a different
 system. The proper device can be found for example with
 &lt;code&gt;fdisk -l&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;4M &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;raspbian-buster-lite.img of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/mmcblk0 conv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;fsync status&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;progress
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If &lt;code&gt;dd&lt;/code&gt; cannot be used to write the image to
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;4M &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;raspbian-buster-lite.img of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/mmcblk0 conv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;fsync status&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;progress&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If &lt;code&gt;dd&lt;/code&gt; cannot be used to write the image to
 the SD card, there is a guide in
 &lt;a href=&#34;https://www.raspberrypi.org/documentation/installation/installing-images/README.md&#34;&gt;Raspberry documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;That&amp;rsquo;s it, given everything is connected to the Raspberry.
@@ -53,10 +58,11 @@ It can be booted now. Login is &lt;code&gt;pi&lt;/code&gt; and password is
 &lt;code&gt;raspberry&lt;/code&gt;. First, the system is updated and then
 &lt;code&gt;raspi-config&lt;/code&gt; can be run to do some basic
 configuration.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt update
-$ sudo apt dist-upgrade
-$ sudo raspi-config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In order to use the complete screen, overscan is deactivated.
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo raspi-config&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In order to use the complete screen, overscan is deactivated.
 Since it is not intended to use this raspberry for anything
 else than Citrix, it is more convenient to autologin after
 boot.&lt;/p&gt;
@@ -66,7 +72,9 @@ boot.&lt;/p&gt;
 &lt;li&gt;Update timezone: 3 Localization -&amp;gt; I2&lt;/li&gt;
 &lt;li&gt;Reboot after configuration&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;setup-window-manager-and-browser&#34;&gt;Setup window manager and browser&lt;/h2&gt;
+&lt;h2 id=&#34;setup-window-manager-and-browser&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#setup-window-manager-and-browser&#34;&gt;Setup window manager and browser&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;For this thin-client there is no desktop environment
 with office software, games etc. required. It only
 needs a browser to get a Citrix session and Citrix
@@ -82,28 +90,35 @@ and fluxbox have worked with one monitor only. So I
 have chosen xfwm4, because it looks nicer. To get
 a Citrix connection, I do need a browser. I chose
 Midori, because it feels light.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt install xfwm4 xfce4-panel xinit xterm
-$ sudo apt install midori
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Since I do not want to have any transparency, shadows
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install xfwm4 xfce4-panel xinit xterm
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install midori&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since I do not want to have any transparency, shadows
 etc. I deactivated the xfwm4 compositor. The settings
 menu can be opened through bash.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ xfwm4-tweaks-settings
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The window manager should be started when autologin
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xfwm4-tweaks-settings&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The window manager should be started when autologin
 starts bash. So we add the xfce4-panel and xfwm4 to
 &lt;code&gt;.xinitrc&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ cat &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; EOF &amp;gt; ~/.xinitrc
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;xfce4-panel &amp;amp;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;exec xfwm4
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And then &lt;code&gt;startx&lt;/code&gt; in &lt;code&gt;.bashprofile&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ cat &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; EOF &amp;gt; ~/.bash_profile
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;if [[ -z $DISPLAY ]] &amp;amp;&amp;amp; [[ $(tty) = /dev/tty1 ]]; then
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    exec startx
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;fi
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After this we can reboot into xfwm4.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ reboot
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;setup-citrix-workspace&#34;&gt;Setup Citrix workspace&lt;/h2&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cat &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; EOF &amp;gt; ~/.xinitrc
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;xfce4-panel &amp;amp;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;exec xfwm4
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;EOF&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then &lt;code&gt;startx&lt;/code&gt; in &lt;code&gt;.bashprofile&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cat &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; EOF &amp;gt; ~/.bash_profile
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;if [[ -z $DISPLAY ]] &amp;amp;&amp;amp; [[ $(tty) = /dev/tty1 ]]; then
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    exec startx
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;EOF&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After this we can reboot into xfwm4.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;reboot&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;setup-citrix-workspace&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#setup-citrix-workspace&#34;&gt;Setup Citrix workspace&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;So far we have prepared a minimal Raspbian, with a
 window manager and a browser. Now we can download
 &lt;em&gt;Citrix Workspace app for Linux (ARM HF)&lt;/em&gt; from
@@ -116,35 +131,50 @@ missing package will be reported. The missing package
 can be installed with &lt;code&gt;apt install missing-package&lt;/code&gt;
 and then Workspace app installation with &lt;code&gt;dpkg&lt;/code&gt; can
 be tried again.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make ssl certificates available to ICAClient.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In case the certificate of your companies website
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make ssl certificates available to ICAClient.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In case the certificate of your companies website
 is not trusted, you can add it to your certificates
 and update the certificates.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo mv certificate.crt /usr/local/share/ca-certificates/
-$ sudo update-ca-certificates
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;citrx-configuration&#34;&gt;Citrx Configuration&lt;/h2&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mv certificate.crt /usr/local/share/ca-certificates/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo update-ca-certificates&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;citrx-configuration&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#citrx-configuration&#34;&gt;Citrx Configuration&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;For my headset to work on the remote host, I also installed
 Pulseaudio plugin and changed the &lt;code&gt;AllowAudioInput&lt;/code&gt; in
 &lt;code&gt;~/wfclient.ini&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt install xfce4-pulseaudio-plugin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;wfclient.ini&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;AllowAudioInput=True
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In different applications I use mouse middle click, e.g. to
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install xfce4-pulseaudio-plugin&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;wfclient.ini&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;AllowAudioInput=True&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In different applications I use mouse middle click, e.g. to
 close tabs or to open in a new tab. The default Citrix configuration
 remaps mouse middle click to &lt;code&gt;paste&lt;/code&gt; (ctrl + v). I commented this
 line with a semicolon.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;;MouseSendsControlV=True
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;backup&#34;&gt;Backup&lt;/h2&gt;
+
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;;MouseSendsControlV=True&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;backup&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#backup&#34;&gt;Backup&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;Finally, I made a backup of my Raspberry on my notebook.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;4M &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/mmcblk0 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;raspbian-citrix.img conv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;fsync status&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;progress
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;start-citrix&#34;&gt;Start Citrix&lt;/h2&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;4M &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/mmcblk0 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;raspbian-citrix.img conv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;fsync status&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;progress&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;start-citrix&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#start-citrix&#34;&gt;Start Citrix&lt;/a&gt;
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Get Citrix connection file&lt;/li&gt;
 &lt;li&gt;Open downloaded icx file&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;h2 id=&#34;references&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://www.lunulata.io/posts/raspberry-citrix/#references&#34;&gt;References&lt;/a&gt;
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://unix.stackexchange.com/questions/42359/how-can-i-autologin-to-desktop-with-systemd&#34;&gt;autologin with systemd&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://arsenicks.wordpress.com/2019/01/30/use-multiple-monitor-and-full-screen-with-citrix-receiver-on-linux/&#34;&gt;Use multiple monitor and full screen with Citrix receiver on Linux&lt;/a&gt;&lt;/li&gt;
@@ -154,14 +184,14 @@ line with a semicolon.&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://geektechstuff.com/2018/06/24/installing-citrix-receiver-raspberry-pi/&#34;&gt;Installing Citrix Receiver (Raspberry Pi)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.citrix.com/blogs/2019/07/08/how-good-is-the-new-raspberry-pi-4-as-a-thin-client/&#34;&gt;How good is the new Raspberry Pi 4 as a thin client?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://support.citrix.com/article/CTX209485&#34;&gt;How to make a session that spans multiple monitors with Linux Receiver&lt;/a&gt; &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://support.citrix.com/article/CTX209485&#34;&gt;How to make a session that spans multiple monitors with Linux Receiver&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
   </channel>

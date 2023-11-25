@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content=
     "Citrix Workspace App is the client component of Citrix Workspace. It enables access to a full desktop on a remote host and is available for many different platforms. A colleague recently mentioned it could be installed on a Raspberry. So I have not hesitated and ordered a Raspberry Pi 4 to setup a thin-client for work from home. I use this Raspberry for nothing but Citrix, so I try to keep the number of installed packages at a minimum.">
-    <meta name="generator" content="Hugo 0.78.1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="generator" content="Hugo 0.120.1">
     <title>Raspberry Citrix with Dual Monitor | lunulata.io</title>
-    <link rel="canonical" href="/posts/raspberry-citrix/">
-    <link rel="stylesheet" href="/css/base.min.945dfbd6f366804b04f95169d6ab7d806abd78e34feece45f8386ee04cef8b59.css"
-    integrity="sha256-lF371vNmgEsE+VFp1qt9gGq9eONP7s5F+Dhu4Ezvi1k=" crossorigin="anonymous">
+    <link rel="canonical" href="https://www.lunulata.io/posts/raspberry-citrix/">
+    <link rel="stylesheet" href="/css/base.min.6a46f5da0b87c707fb93c5d7713330ce613ed4478c4c23629330b68479482667.css"
+    integrity="sha256-akb12guHxwf7k8XXcTMwzmE+1EeMTCNikzC2hHlIJmc=" crossorigin="anonymous">
 </head>
 <body>
     <nav class="u-background">
         <div class="u-wrapper">
             <ul class="Banner">
                 <li class="Banner-item Banner-item--title">
-                    <a class="Banner-link u-clickable" href="/">lunulata.io</a>
+                    <h1 class="Banner-heading"><a class="Banner-link u-clickable" href="/">lunulata.io</a></h1>
                 </li>
                 <li class="Banner-item">
                     <a class="Banner-link u-clickable" href="/mortgage/">mortgage calculator</a>
@@ -45,7 +46,8 @@
                     4 to setup a thin-client for work from home. I use this Raspberry for nothing but Citrix, so I try
                     to keep the number of installed packages at a minimum. Below I will explain how I setup a Citrix
                     Workspace App on Raspbian on a Raspberry Pi 4 with two monitors.</p>
-                    <h2 id="hardware">Hardware</h2>
+                    <h2 id="hardware"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#hardware">Hardware</a></h2>
                     <ul>
                         <li>Raspberry Pi 4 Model B 4GB</li>
                         <li>16GB Class 10 SD Card</li>
@@ -55,20 +57,21 @@
                     not needed for this setup. The memory usage usually is below 500MB, so 2G is definitely enough. I
                     use a 16GB SD card since it was as expensive as a 8GB, Rasbian Lite with all the packages takes
                     2.5GB. 4GB or 8GB would have been enough.</p>
-                    <h2 id="install-rasbian-lite">Install Rasbian Lite</h2>
+                    <h2 id="install-rasbian-lite"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#install-rasbian-lite">Install Rasbian Lite</a></h2>
                     <p>First the Raspbian Buster Lite image is written to the SD card. It can be downloaded from
                     <a href="https://www.raspberrypi.org/downloads/raspbian/">Rasberry downloads</a>. The SD card may
                     not be <code>/dev/mmcblk0</code> on a different system. The proper device can be found for example
                     with <code>fdisk -l</code>.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo dd bs<span style="color:#f92672">=</span>4M <span style=
-                        "color:#66d9ef">if</span><span style=
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dd bs<span style=
+                        "color:#f92672">=</span>4M <span style="color:#66d9ef">if</span><span style=
                         "color:#f92672">=</span>raspbian-buster-lite.img of<span style=
                         "color:#f92672">=</span>/dev/mmcblk0 conv<span style=
-                        "color:#f92672">=</span>fsync status<span style="color:#f92672">=</span>progress
-</code></pre>
+                        "color:#f92672">=</span>fsync status<span style=
+                        "color:#f92672">=</span>progress</span></span></code></pre>
                     </div>
                     <p>If <code>dd</code> cannot be used to write the image to the SD card, there is a guide in
                     <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">Raspberry
@@ -77,12 +80,11 @@
                     <code>pi</code> and password is <code>raspberry</code>. First, the system is updated and then
                     <code>raspi-config</code> can be run to do some basic configuration.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo apt update
-$ sudo apt dist-upgrade
-$ sudo raspi-config
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt dist-upgrade
+</span></span><span style="display:flex;"><span>sudo raspi-config</span></span></code></pre>
                     </div>
                     <p>In order to use the complete screen, overscan is deactivated. Since it is not intended to use
                     this raspberry for anything else than Citrix, it is more convenient to autologin after boot.</p>
@@ -92,7 +94,9 @@ $ sudo raspi-config
                         <li>Update timezone: 3 Localization -&gt; I2</li>
                         <li>Reboot after configuration</li>
                     </ul>
-                    <h2 id="setup-window-manager-and-browser">Setup window manager and browser</h2>
+                    <h2 id="setup-window-manager-and-browser"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#setup-window-manager-and-browser">Setup window manager and
+                    browser</a></h2>
                     <p>For this thin-client there is no desktop environment with office software, games etc. required.
                     It only needs a browser to get a Citrix session and Citrix Workspace App. If only one monitor is
                     used, almost any window manager can be used. With two monitors it has shown slightly more
@@ -103,51 +107,54 @@ $ sudo raspi-config
                     worked with one monitor only. So I have chosen xfwm4, because it looks nicer. To get a Citrix
                     connection, I do need a browser. I chose Midori, because it feels light.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo apt install xfwm4 xfce4-panel xinit xterm
-$ sudo apt install midori
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>sudo apt install xfwm4 xfce4-panel xinit xterm
+</span></span><span style="display:flex;"><span>sudo apt install midori</span></span></code></pre>
                     </div>
                     <p>Since I do not want to have any transparency, shadows etc. I deactivated the xfwm4 compositor.
                     The settings menu can be opened through bash.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ xfwm4-tweaks-settings
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>xfwm4-tweaks-settings</span></span></code></pre>
                     </div>
                     <p>The window manager should be started when autologin starts bash. So we add the xfce4-panel and
                     xfwm4 to <code>.xinitrc</code>.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ cat <span style="color:#e6db74">&lt;&lt; EOF &gt; ~/.xinitrc
-</span><span style="color:#e6db74">xfce4-panel &
-</span><span style="color:#e6db74">exec xfwm4
-</span><span style="color:#e6db74">EOF</span>
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style="display:flex;"><span>cat <span style=
+                        "color:#e6db74">&lt;&lt; EOF &gt; ~/.xinitrc
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">xfce4-panel &
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">exec xfwm4
+</span></span></span><span style="display:flex;"><span><span style=
+"color:#e6db74">EOF</span></span></span></code></pre>
                     </div>
                     <p>And then <code>startx</code> in <code>.bashprofile</code>.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ cat <span style=
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style="display:flex;"><span>cat <span style=
                         "color:#e6db74">&lt;&lt; EOF &gt; ~/.bash_profile
-</span><span style="color:#e6db74">if [[ -z $DISPLAY ]] &amp;& [[ $(tty) = /dev/tty1 ]]; then
-</span><span style="color:#e6db74">    exec startx
-</span><span style="color:#e6db74">fi
-</span><span style="color:#e6db74">EOF</span>
-</code></pre>
+</span></span></span><span style="display:flex;"><span><span style=
+"color:#e6db74">if [[ -z $DISPLAY ]] &amp;& [[ $(tty) = /dev/tty1 ]]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    exec startx
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">fi
+</span></span></span><span style="display:flex;"><span><span style=
+"color:#e6db74">EOF</span></span></span></code></pre>
                     </div>
                     <p>After this we can reboot into xfwm4.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ reboot
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>reboot</span></span></code></pre>
                     </div>
-                    <h2 id="setup-citrix-workspace">Setup Citrix workspace</h2>
+                    <h2 id="setup-citrix-workspace"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#setup-citrix-workspace">Setup Citrix workspace</a></h2>
                     <p>So far we have prepared a minimal Raspbian, with a window manager and a browser. Now we can
                     download <em>Citrix Workspace app for Linux (ARM HF)</em> from <a href=
                     "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html">Citrix
@@ -158,62 +165,64 @@ $ sudo apt install midori
                     missing-package</code> and then Workspace app installation with <code>dpkg</code> can be tried
                     again.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>sudo dpkg -i Downloads/icaclient_19.12.0.19_armhf.deb</span></span></code></pre>
                     </div>
                     <p>Make ssl certificates available to ICAClient.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang=
-                        "bash">$ sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>sudo ln -sf /etc/ssl/certs/* /opt/Citrix/ICAClient/keystore/cacerts/</span></span></code></pre>
                     </div>
                     <p>In case the certificate of your companies website is not trusted, you can add it to your
                     certificates and update the certificates.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo mv certificate.crt /usr/local/share/ca-certificates/
-$ sudo update-ca-certificates
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>sudo mv certificate.crt /usr/local/share/ca-certificates/
+</span></span><span style="display:flex;"><span>sudo update-ca-certificates</span></span></code></pre>
                     </div>
-                    <h2 id="citrx-configuration">Citrx Configuration</h2>
+                    <h2 id="citrx-configuration"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#citrx-configuration">Citrx Configuration</a></h2>
                     <p>For my headset to work on the remote host, I also installed Pulseaudio plugin and changed the
                     <code>AllowAudioInput</code> in <code>~/wfclient.ini</code> to <code>true</code>.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo apt install xfce4-pulseaudio-plugin
-</code></pre>
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style=
+                        "display:flex;"><span>sudo apt install xfce4-pulseaudio-plugin</span></span></code></pre>
                     </div>
                     <p><code>wfclient.ini</code>:</p>
-                    <pre><code>AllowAudioInput=True
-</code></pre>
+                    <pre tabindex="0"><code>AllowAudioInput=True</code></pre>
                     <p>In different applications I use mouse middle click, e.g. to close tabs or to open in a new tab.
                     The default Citrix configuration remaps mouse middle click to <code>paste</code> (ctrl + v). I
                     commented this line with a semicolon.</p>
-                    <pre><code>;MouseSendsControlV=True
-</code></pre>
-                    <h2 id="backup">Backup</h2>
+                    <pre tabindex="0"><code>;MouseSendsControlV=True</code></pre>
+                    <h2 id="backup"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#backup">Backup</a></h2>
                     <p>Finally, I made a backup of my Raspberry on my notebook.</p>
                     <div class="highlight">
-                        <pre style=
-                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class=
-                        "language-bash" data-lang="bash">$ sudo dd bs<span style="color:#f92672">=</span>4M <span style=
-                        "color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/mmcblk0 of<span style=
+                        <pre tabindex="0" style=
+                        "color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class=
+                        "language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dd bs<span style=
+                        "color:#f92672">=</span>4M <span style="color:#66d9ef">if</span><span style=
+                        "color:#f92672">=</span>/dev/mmcblk0 of<span style=
                         "color:#f92672">=</span>raspbian-citrix.img conv<span style=
-                        "color:#f92672">=</span>fsync status<span style="color:#f92672">=</span>progress
-</code></pre>
+                        "color:#f92672">=</span>fsync status<span style=
+                        "color:#f92672">=</span>progress</span></span></code></pre>
                     </div>
-                    <h2 id="start-citrix">Start Citrix</h2>
+                    <h2 id="start-citrix"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#start-citrix">Start Citrix</a></h2>
                     <ul>
                         <li>Get Citrix connection file</li>
                         <li>Open downloaded icx file</li>
                     </ul>
-                    <h2 id="references">References</h2>
+                    <h2 id="references"><a class="Heading-link u-clickable" href=
+                    "/posts/raspberry-citrix/#references">References</a></h2>
                     <ul>
                         <li>
                             <a href=
@@ -251,16 +260,16 @@ $ sudo update-ca-certificates
                             How good is the new Raspberry Pi 4 as a thin client?</a>
                         </li>
                     </ul>
-                    <section class="footnotes" role="doc-endnotes">
+                    <div class="footnotes" role="doc-endnotes">
                         <hr>
                         <ol>
-                            <li id="fn:1" role="doc-endnote">
+                            <li id="fn:1">
                                 <p><a href="https://support.citrix.com/article/CTX209485">How to make a session that
-                                spans multiple monitors with Linux Receiver</a> <a href="#fnref:1" class=
+                                spans multiple monitors with Linux Receiver</a>&nbsp;<a href="#fnref:1" class=
                                 "footnote-backref" role="doc-backlink">↩︎</a></p>
                             </li>
                         </ol>
-                    </section>
+                    </div>
                 </article>
             </div>
         </div>
